@@ -1,0 +1,25 @@
+{
+    "name": "whiteoctober/swiftmailerdbbundle",
+    "description": "Database spooling for SwiftMailer",
+    "keywords": ["swiftmailer", "doctrine", "spool"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rich Sage",
+            "email": "rich.sage@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "swiftmailer/swiftmailer": ">=4.2.0,<4.3-dev",        
+        "symfony/swiftmailer-bridge": "2.1.*",
+        "symfony/swiftmailer-bundle": ">=2.1.0"
+    },
+    "autoload": {
+        "psr-0": { 
+            "WhiteOctober\\SwiftMailerDBBundle": ""
+         }
+    },
+    "target-dir": "WhiteOctober/SwiftMailerDBBundle"
+}
