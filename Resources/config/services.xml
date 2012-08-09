@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="white_october.swiftmailer_db.spool.class">WhiteOctober\SwiftMailerDBBundle\Spool\DatabaseSpool</parameter>
+    </parameters>
+
+    <services>
+        <service id="white_october.swiftmailer_db.spool" class="%white_october.swiftmailer_db.spool.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%white_october.swiftmailer_db.spool.entity_class%</argument>
+        </service>
+
+        <service id="swiftmailer.spool.db" alias="white_october.swiftmailer_db.spool" />
+    </services>
+
+</container>
