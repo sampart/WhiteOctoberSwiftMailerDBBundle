@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root("wo_swiftmailer_db");
+        $rootNode = $treeBuilder->root("white_october_swift_mailer_db");
 
         $rootNode
             ->children()
