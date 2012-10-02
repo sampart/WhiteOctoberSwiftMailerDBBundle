@@ -36,9 +36,9 @@ Installation
             );
         }
 
-  4. Configure the `wo_swiftmailer_db` service in your config.yml:
+  4. Configure the `white_october_swift_mailer_db` service in your config.yml:
 
-        wo_swiftmailer_db:
+        white_october_swift_mailer_db:
             entity_class: Full\Path\To\Mail\Entity
 
   5. Tell SwiftMailer to use the database spooler:
