@@ -5,9 +5,25 @@ At present, it only works with the Doctrine EntityManager and entities managed w
 Installation
 ============
 
-  1. Add this bundle to your vendor/ dir using the vendors script:
+First of all, get the bundle into your project.
 
-    Add the following lines in your ``deps`` file:
+**Via Composer**:
+
+  1. Add the following line to your composer.json require section:
+
+        {
+            "require": {
+                "whiteoctober/swiftmailerdbbundle": "dev-master"
+            }
+        }
+
+  2. Download the bundle via Composer:
+
+        $ php composer.phar update whiteoctober/swiftmailerdbbundle
+
+**Via the deps files**:
+
+  1. Add the following lines in your ``deps`` file:
 
         [WhiteOctoberSwiftMailerDBBundle]
             git=git://github.com/whiteoctober/WhiteOctoberSwiftMailerDBBundle.git
@@ -24,7 +40,10 @@ Installation
             'WhiteOctober' => __DIR__.'/../vendor/bundles',
         ));
 
-  3. Add this bundle to your application's kernel:
+Once you've got the bundle downloaded in your Symfony project, you'll need to add it to the kernel,
+and add some configuration parameters, so that it knows which entity you want to use.
+
+  1. Add the bundle to your application's kernel:
 
         // app/AppKernel.php
         public function registerBundles()
@@ -36,18 +55,20 @@ Installation
             );
         }
 
-  4. Configure the `wo_swiftmailer_db` service in your config.yml:
+  2. Configure the `wo_swiftmailer_db` service in your config.yml:
 
         wo_swiftmailer_db:
             entity_class: Full\Path\To\Mail\Entity
 
-  5. Tell SwiftMailer to use the database spooler:
+     Read below about how to construct this entity.
+
+  3. Tell SwiftMailer to use the database spooler:
 
         swiftmailer:
             spool:
                 type: db
 
-That's it for bundle configuration.
+That's it for bundle installation and configuration.
 
 Mail entity
 ===========
