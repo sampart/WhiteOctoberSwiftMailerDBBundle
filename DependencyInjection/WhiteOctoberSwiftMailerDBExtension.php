@@ -42,12 +42,10 @@ class WhiteOctoberSwiftMailerDBExtension extends Extension
     }
 
     /**
-     * Nicer alias :-)
-     *
      * @return string
      */
     public function getAlias()
     {
-        return "wo_swiftmailer_db";
+        return "white_october_swift_mailer_db";
     }
 }

@@ -11,9 +11,4 @@ use WhiteOctober\SwiftMailerDBBundle\DependencyInjection\WhiteOctoberSwiftMailer
  */
 class WhiteOctoberSwiftMailerDBBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
-     {
-         // Using a different alias - need to set the extension here
-         $this->extension = new WhiteOctoberSwiftMailerDBExtension();
-     }
 }

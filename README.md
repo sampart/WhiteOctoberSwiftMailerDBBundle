@@ -55,9 +55,9 @@ and add some configuration parameters, so that it knows which entity you want to
             );
         }
 
-  2. Configure the `wo_swiftmailer_db` service in your config.yml:
+  2. Configure the `white_october_swift_mailer_db` service in your config.yml:
 
-        wo_swiftmailer_db:
+        white_october_swift_mailer_db:
             entity_class: Full\Path\To\Mail\Entity
 
      Read below about how to construct this entity.
