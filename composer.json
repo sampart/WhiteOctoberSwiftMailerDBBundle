@@ -12,8 +12,6 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "swiftmailer/swiftmailer": "~4.2.0",        
-        "symfony/swiftmailer-bridge": "~2.1",
         "symfony/swiftmailer-bundle": "~2.1"
     },
     "autoload": {
