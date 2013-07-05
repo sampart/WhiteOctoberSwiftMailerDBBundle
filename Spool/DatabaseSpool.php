@@ -91,7 +91,7 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         }
 
         $repoClass = $this->em->getRepository($this->entityClass);
-        $emails = $repoClass->findBy(array("status" => EmailInterface::STATUS_READY));
+        $emails = $repoClass->findBy(array("status" => EmailInterface::STATUS_READY), null, $this->getMessageLimit());
         if (!count($emails)) {
             return 0;
         }
@@ -108,10 +108,6 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
             $count += $transport->send($message, $failedRecipients);
             $this->em->remove($email);
             $this->em->flush();
-
-            if ($this->getMessageLimit() && $count >= $this->getMessageLimit()) {
-                break;
-            }
 
             if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit()) {
                 break;
