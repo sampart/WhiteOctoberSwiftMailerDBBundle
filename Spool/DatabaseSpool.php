@@ -91,7 +91,9 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         }
 
         $repoClass = $this->em->getRepository($this->entityClass);
-        $emails = $repoClass->findBy(array("status" => EmailInterface::STATUS_READY), null, $this->getMessageLimit());
+        $limit = $this->getMessageLimit();
+        $limit = $limit > 0 ? $limit : null;
+        $emails = $repoClass->findBy(array("status" => EmailInterface::STATUS_READY), null, $limit);
         if (!count($emails)) {
             return 0;
         }
