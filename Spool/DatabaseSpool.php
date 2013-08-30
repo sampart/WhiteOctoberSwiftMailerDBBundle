@@ -103,7 +103,6 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         $time = time();
         foreach ($emails as $email) {
             $email->setStatus(EmailInterface::STATUS_PROCESSING);
-            $this->em->persist($email);
             $this->em->flush();
 
             $message = unserialize($email->getMessage());
