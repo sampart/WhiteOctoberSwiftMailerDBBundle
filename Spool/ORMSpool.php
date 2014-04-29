@@ -5,7 +5,7 @@ namespace WhiteOctober\SwiftMailerDBBundle\Spool;
 use Doctrine\ORM\EntityManager;
 use WhiteOctober\SwiftMailerDBBundle\EmailInterface;
 
-class DatabaseSpool extends \Swift_ConfigurableSpool
+class ORMSpool extends \Swift_ConfigurableSpool
 {
     /**
      * @var EntityManager

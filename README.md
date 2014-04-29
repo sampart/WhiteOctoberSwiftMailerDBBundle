@@ -1,13 +1,14 @@
-This bundle faciliates using a database to spool messages to with SwiftMailer and Symfony2.
+This bundle facilitates using a database to spool messages to with SwiftMailer and Symfony2.
 
-At present, it only works with the Doctrine EntityManager and entities managed with this.
+You can choose from either Doctrine ORM or ODM (MongoDB) depending on your projects db.
 
 Installation
 ============
 
 First of all, get the bundle into your project.
 
-**Via Composer**:
+Using Composer:
+-------------
 
   1. Add the following line to your composer.json require section:
 
@@ -21,7 +22,8 @@ First of all, get the bundle into your project.
 
         $ php composer.phar update whiteoctober/swiftmailerdbbundle
 
-**Via the deps files**:
+Using the deps files:
+-------------------
 
   1. Add the following lines in your ``deps`` file:
 
@@ -40,8 +42,11 @@ First of all, get the bundle into your project.
             'WhiteOctober' => __DIR__.'/../vendor/bundles',
         ));
 
+Configuration
+=============
+
 Once you've got the bundle downloaded in your Symfony project, you'll need to add it to the kernel,
-and add some configuration parameters, so that it knows which entity you want to use.
+and add some configuration parameters, so that it knows which entity/document you want to use.
 
   1. Add the bundle to your application's kernel:
 
@@ -57,10 +62,19 @@ and add some configuration parameters, so that it knows which entity you want to
 
   2. Configure the `white_october_swift_mailer_db` service in your config.yml:
 
-        white_october_swift_mailer_db:
-            entity_class: Full\Path\To\Mail\Entity
+     a. Using Doctrine ORM:
 
-     Read below about how to construct this entity.
+        white_october_swift_mailer_db:
+            driver: orm
+            model:  Full\Path\To\Email\Entity
+
+     b. Using Doctrine ODM (MongoDB):
+
+        white_october_swift_mailer_db:
+            driver: odm
+            model:  Full\Path\To\Email\Document
+
+     Read below about how to construct your entity or document class.
 
   3. Tell SwiftMailer to use the database spooler:
 
@@ -70,14 +84,12 @@ and add some configuration parameters, so that it knows which entity you want to
 
 That's it for bundle installation and configuration.
 
-Mail entity
-===========
+Email Entity/Document
+========================
 
-You will need to create an entity that can be persisted and that extends from the
-`EmailInterface` interface in the bundle.  At the moment, the bundle expects a
-property to be available on your entity called 'status', since this field is queried.
+You will need to create an entity or document that can be persisted and that implements the
+`EmailInterface` interface in the bundle. At the moment, the bundle expects a property to be
+available on your entity or document called 'status', since this field is queried.
 
-Once you have your entity all set up, use the full namespaced path in your `config.yml`
+Once you have your entity or document all set up, use the full namespaced path in your `config.yml`
 configuration as detailed above.
-
-

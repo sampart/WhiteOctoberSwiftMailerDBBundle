@@ -19,7 +19,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode("entity_class")->isRequired()->end()
+                ->enumNode("driver")->values(array('orm', 'odm'))->isRequired()->end()
+                ->scalarNode("model")->isRequired()->end()
             ->end()
         ;
 

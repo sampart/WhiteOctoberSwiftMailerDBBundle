@@ -19,11 +19,14 @@ class WhiteOctoberSwiftMailerDBExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $this->loadDriver($container, $configs[0]['driver']);
         $this->setupConfiguration($configs, $container);
+    }
 
-        // Service config
+    protected function loadDriver(ContainerBuilder $container, $driver)
+    {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader->load($driver.'.xml');
     }
 
     /**
@@ -38,7 +41,7 @@ class WhiteOctoberSwiftMailerDBExtension extends Extension
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $container->setParameter("white_october.swiftmailer_db.spool.entity_class", $config["entity_class"]);
+        $container->setParameter("white_october.swiftmailer_db.spool.model", $config["model"]);
     }
 
     /**
