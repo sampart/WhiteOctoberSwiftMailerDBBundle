@@ -17,9 +17,22 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
      */
     protected $entityClass;
 
-    public function __construct(EntityManager $em, $entityClass)
+    /**
+     * @var boolean
+     */
+    protected $keepSentMessages;
+
+    /**
+     * @param EntityManager $em
+     * @param string        $entityClass
+     * @param bool          $keepSentMessages
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct(EntityManager $em, $entityClass, $keepSentMessages = false)
     {
-        $this->em = $em;
+        $this->em               = $em;
+        $this->keepSentMessages = $keepSentMessages;
 
         $obj = new $entityClass;
         if (!$obj instanceof EmailInterface) {
@@ -107,7 +120,11 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
 
             $message = unserialize($email->getMessage());
             $count += $transport->send($message, $failedRecipients);
-            $this->em->remove($email);
+            if ($this->keepSentMessages === true) {
+                $email->setStatus(EmailInterface::STATUS_COMPLETE);
+            } else {
+                $this->em->remove($email);
+            }
             $this->em->flush();
 
             if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit()) {

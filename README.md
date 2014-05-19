@@ -70,6 +70,8 @@ and add some configuration parameters, so that it knows which entity you want to
 
 That's it for bundle installation and configuration.
 
+
+
 Mail entity
 ===========
 
@@ -81,3 +83,12 @@ Once you have your entity all set up, use the full namespaced path in your `conf
 configuration as detailed above.
 
 
+
+Optional: keeping sent messages in the database
+===============================================
+
+By default, messages which were succesfully sent will be deleted from the database. It is possible to configure
+the bundle to keep those messages in your config.yml:
+
+    white_october_swift_mailer_db:
+        keep_sent_messages: true

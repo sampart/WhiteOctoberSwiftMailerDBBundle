@@ -39,6 +39,7 @@ class WhiteOctoberSwiftMailerDBExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $container->setParameter("white_october.swiftmailer_db.spool.entity_class", $config["entity_class"]);
+        $container->setParameter("white_october.swiftmailer_db.spool.keep_sent_messages", $config["keep_sent_messages"]);
     }
 
     /**

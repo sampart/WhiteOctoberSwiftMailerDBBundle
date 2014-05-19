@@ -20,6 +20,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode("entity_class")->isRequired()->end()
+                ->scalarNode("keep_sent_messages")->defaultFalse()->end()
             ->end()
         ;
 
