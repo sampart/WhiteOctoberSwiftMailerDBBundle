@@ -23,13 +23,19 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
     protected $keepSentMessages;
 
     /**
+     * @var string
+     */
+    private $environment;
+
+    /**
      * @param EntityManager $em
      * @param string        $entityClass
+     * @param string        $environment
      * @param bool          $keepSentMessages
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(EntityManager $em, $entityClass, $keepSentMessages = false)
+    public function __construct(EntityManager $em, $entityClass, $environment, $keepSentMessages = false)
     {
         $this->em               = $em;
         $this->keepSentMessages = $keepSentMessages;
@@ -40,6 +46,7 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         }
 
         $this->entityClass = $entityClass;
+        $this->environment = $environment;
     }
 
     /**
@@ -78,6 +85,7 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         $mailObject = new $this->entityClass;
         $mailObject->setMessage(serialize($message));
         $mailObject->setStatus(EmailInterface::STATUS_READY);
+        $mailObject->setEnvironment($this->environment);
         try {
             $this->em->persist($mailObject);
             $this->em->flush();
@@ -106,7 +114,11 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         $repoClass = $this->em->getRepository($this->entityClass);
         $limit = $this->getMessageLimit();
         $limit = $limit > 0 ? $limit : null;
-        $emails = $repoClass->findBy(array("status" => EmailInterface::STATUS_READY), null, $limit);
+        $emails = $repoClass->findBy(
+          array("status" => EmailInterface::STATUS_READY, "environment" => $this->environment),
+          null,
+          $limit
+        );
         if (!count($emails)) {
             return 0;
         }

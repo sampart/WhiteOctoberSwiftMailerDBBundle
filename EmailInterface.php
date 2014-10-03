@@ -12,4 +12,6 @@ interface EmailInterface
     public function getMessage();
 
     public function getStatus();
+
+    public function getEnvironment();
 }
