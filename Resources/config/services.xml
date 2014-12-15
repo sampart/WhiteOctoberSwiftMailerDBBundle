@@ -9,7 +9,7 @@
 
     <services>
         <service id="white_october.swiftmailer_db.spool" class="%white_october.swiftmailer_db.spool.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="doctrine" />
             <argument>%white_october.swiftmailer_db.spool.entity_class%</argument>
             <argument>%kernel.environment%</argument>
             <argument>%white_october.swiftmailer_db.spool.keep_sent_messages%</argument>
