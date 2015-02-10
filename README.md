@@ -13,7 +13,7 @@ First of all, get the bundle into your project.
 
         {
             "require": {
-                "whiteoctober/swiftmailerdbbundle": "1.0.1"
+                "whiteoctober/swiftmailerdbbundle": "1.0.3"
             }
         }
 
