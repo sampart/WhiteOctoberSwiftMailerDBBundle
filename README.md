@@ -39,7 +39,7 @@ public function registerBundles()
 
 ``` yaml
 white_october_swift_mailer_db:
-    entity_class: Full\Path\To\Mail\Entity
+    entity_class: AppBundle\Entity\Email
 ```
 
 Read below about how to construct this entity.
