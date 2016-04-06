@@ -20,7 +20,7 @@ At present, it only works with the Doctrine EntityManager and entities managed w
 $ composer require "whiteoctober/swiftmailerdbbundle:^1.0"
 ```
 
-### 2. Add the bundle to your application's kernel:
+### 2. Add the bundle to your application's kernel
 
 ``` php
 // app/AppKernel.php
@@ -34,7 +34,7 @@ public function registerBundles()
 }
 ```
 
-### 3. Configure the `white_october_swift_mailer_db` service in your config.yml:
+### 3. Configure the `white_october_swift_mailer_db` in config.yml
 
 
 ``` yaml
@@ -44,7 +44,7 @@ white_october_swift_mailer_db:
 
 Read below about how to construct this entity.
 
-### 4. Tell SwiftMailer to use the database spooler:
+### 4. Tell SwiftMailer to use the database spooler
 
 ``` yaml
 swiftmailer:
