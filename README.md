@@ -5,6 +5,8 @@
 [![Monthly Downloads](https://poser.pugx.org/whiteoctober/swiftmailerdbbundle/d/monthly)](https://packagist.org/packages/whiteoctober/swiftmailerdbbundle)
 [![License](https://poser.pugx.org/whiteoctober/swiftmailerdbbundle/license)](https://packagist.org/packages/whiteoctober/swiftmailerdbbundle)
 
+![SwiftMailer](http://swiftmailer.org/images/logo.png)
+
 This bundle faciliates using a database to spool messages to with SwiftMailer and Symfony2.
 
 At present, it only works with the Doctrine EntityManager and entities managed with this.
