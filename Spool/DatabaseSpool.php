@@ -138,21 +138,36 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         foreach ($emails as $email) {
             $email->setStatus(EmailInterface::STATUS_PROCESSING);
             $this->doc->getManager()->persist($email);
-            $this->doc->getManager()->flush();
+
+            if (!$this->delayFlush) {
+                $this->doc->getManager()->flush();
+            }
 
             $message = unserialize($email->getMessage());
-            $count += $transport->send($message, $failedRecipients);
-            if ($this->keepSentMessages === true) {
-                $email->setStatus(EmailInterface::STATUS_COMPLETE);
+            try {
+                $count += $transport->send($message, $failedRecipients);
+                if ($this->keepSentMessages === true) {
+                    $email->setStatus(EmailInterface::STATUS_COMPLETE);
+                    $this->doc->getManager()->persist($email);
+                } else {
+                    $this->doc->getManager()->remove($email);
+                }
+            } catch (\Exception $e) {
+                $email->setStatus(EmailInterface::STATUS_FAILED);
                 $this->doc->getManager()->persist($email);
-            } else {
-                $this->doc->getManager()->remove($email);
             }
-            $this->doc->getManager()->flush();
+
+            if (!$this->delayFlush) {
+                $this->doc->getManager()->flush();
+            }
 
             if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit()) {
                 break;
             }
+        }
+
+        if ($this->delayFlush) {
+            $this->doc->getManager()->flush();
         }
 
         return $count;
