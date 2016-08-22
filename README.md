@@ -84,11 +84,21 @@ configuration as detailed above.
 
 
 
-Optional: keeping sent messages in the database
-===============================================
+Configuration
+=============
+
+## Keeping sent messages
 
 By default, messages which were succesfully sent will be deleted from the database. It is possible to configure
 the bundle to keep those messages in your config.yml:
 
     white_october_swift_mailer_db:
         keep_sent_messages: true
+
+## Delaying database flushes
+
+Sending a lot of emails in one go may cause excessive delays, due to the flushing of each mail entity as it is sent
+(in order to update status changes). To delay flushing until the end of the spool cycle:
+
+    white_october_swift_mailer_db:
+        delay_flush: true
