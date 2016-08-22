@@ -29,6 +29,11 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
     protected $keepSentMessages;
 
     /**
+     * @var boolean
+     */
+    protected $delayFlush;
+
+    /**
      * @var string
      */
     private $environment;
@@ -38,13 +43,15 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
      * @param string        $entityClass
      * @param string        $environment
      * @param bool          $keepSentMessages
+     * @param bool          $delayFlush
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(RegistryInterface $doc, $entityClass, $environment, $keepSentMessages = false)
+    public function __construct(RegistryInterface $doc, $entityClass, $environment, $keepSentMessages = false, $delayFlush = false)
     {
         $this->doc              = $doc;
         $this->keepSentMessages = $keepSentMessages;
+        $this->delayFlush = $delayFlush;
 
         $obj = new $entityClass;
         if (!$obj instanceof EmailInterface) {

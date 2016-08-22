@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode("entity_class")->isRequired()->end()
                 ->scalarNode("keep_sent_messages")->defaultFalse()->end()
+                ->booleanNode("delay_flush")->defaultFalse()->end()
             ->end()
         ;
 
