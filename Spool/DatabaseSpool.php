@@ -3,7 +3,7 @@
 namespace WhiteOctober\SwiftMailerDBBundle\Spool;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use WhiteOctober\SwiftMailerDBBundle\EmailInterface;
 
@@ -31,7 +31,7 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
     /**
      * @var string
      */
-    private $environment;
+    protected $environment;
 
     /**
      * @param RegistryInterface $doc
@@ -92,8 +92,8 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         $mailObject->setMessage(serialize($message));
         $mailObject->setStatus(EmailInterface::STATUS_READY);
         $mailObject->setEnvironment($this->environment);
-        $this->doc->getManager()->persist($mailObject);
-        $this->doc->getManager()->flush();
+        $this->getManager()->persist($mailObject);
+        $this->getManager()->flush();
 
         return true;
     }
@@ -113,7 +113,7 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
             $transport->start();
         }
 
-        $repoClass = $this->doc->getManager()->getRepository($this->entityClass);
+        $repoClass = $this->getManager()->getRepository($this->entityClass);
         $limit = $this->getMessageLimit();
         $limit = $limit > 0 ? $limit : null;
         $emails = $repoClass->findBy(
@@ -130,18 +130,18 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         $time = time();
         foreach ($emails as $email) {
             $email->setStatus(EmailInterface::STATUS_PROCESSING);
-            $this->doc->getManager()->persist($email);
-            $this->doc->getManager()->flush();
+            $this->getManager()->persist($email);
+            $this->getManager()->flush();
 
             $message = unserialize($email->getMessage());
             $count += $transport->send($message, $failedRecipients);
             if ($this->keepSentMessages === true) {
                 $email->setStatus(EmailInterface::STATUS_COMPLETE);
-                $this->doc->getManager()->persist($email);
+                $this->getManager()->persist($email);
             } else {
-                $this->doc->getManager()->remove($email);
+                $this->getManager()->remove($email);
             }
-            $this->doc->getManager()->flush();
+            $this->getManager()->flush();
 
             if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit()) {
                 break;
@@ -149,5 +149,13 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         }
 
         return $count;
+    }
+
+    /**
+     * @return ObjectManager
+     */
+    protected function getManager()
+    {
+        return $this->doc->getManagerForClass($this->entityClass);
     }
 }

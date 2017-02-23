@@ -74,3 +74,27 @@ the bundle to keep those messages in your config.yml:
 white_october_swift_mailer_db:
     keep_sent_messages: true
 ```
+
+## Optional: using separate entity manager for emails
+
+When a message is sent with configured database spool `$em->flush` is called on default entity manager. This may
+cause side effects, so in order to flush only Email entity, put it in a separate bundle and configure separate
+entity manager for that bundle. For example:
+
+
+```
+white_october_swift_mailer_db:
+    entity_class: MailBundle\Entity\Email
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                connection: default
+                auto_mapping: true
+            mail:
+                connection: default
+                mappings:
+                    MailBundle: ~
+```
+
