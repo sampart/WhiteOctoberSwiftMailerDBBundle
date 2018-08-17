@@ -108,11 +108,6 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
      */
     public function flushQueue(\Swift_Transport $transport, &$failedRecipients = null)
     {
-        if (!$transport->isStarted())
-        {
-            $transport->start();
-        }
-
         $repoClass = $this->getManager()->getRepository($this->entityClass);
         $limit = $this->getMessageLimit();
         $limit = $limit > 0 ? $limit : null;
@@ -123,6 +118,11 @@ class DatabaseSpool extends \Swift_ConfigurableSpool
         );
         if (!count($emails)) {
             return 0;
+        }
+
+        if (!$transport->isStarted())
+        {
+            $transport->start();
         }
 
         $failedRecipients = (array) $failedRecipients;
