@@ -1,3 +1,5 @@
+_This project is looking for maintainers - [details here](https://github.com/whiteoctober/WhiteOctoberSwiftMailerDBBundle/issues/29)._
+
 # SwiftMailerDBBundle
 
 [![Latest Stable Version](https://poser.pugx.org/whiteoctober/swiftmailerdbbundle/v/stable)](https://packagist.org/packages/whiteoctober/swiftmailerdbbundle) 
