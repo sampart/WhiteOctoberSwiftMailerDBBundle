@@ -2,6 +2,8 @@ _This project is looking for maintainers - [details here](https://github.com/whi
 
 # SwiftMailerDBBundle
 
+_This project was originally at https://github.com/whiteoctober/WhiteOctoberSwiftMailerDBBundle_
+
 [![Latest Stable Version](https://poser.pugx.org/whiteoctober/swiftmailerdbbundle/v/stable)](https://packagist.org/packages/whiteoctober/swiftmailerdbbundle) 
 [![Total Downloads](https://poser.pugx.org/whiteoctober/swiftmailerdbbundle/downloads)](https://packagist.org/packages/whiteoctober/swiftmailerdbbundle) 
 [![Monthly Downloads](https://poser.pugx.org/whiteoctober/swiftmailerdbbundle/d/monthly)](https://packagist.org/packages/whiteoctober/swiftmailerdbbundle)
